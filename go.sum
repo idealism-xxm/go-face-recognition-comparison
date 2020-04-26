@@ -1,0 +1,4 @@
+github.com/DataDog/go-python3 v0.0.0-20191126174558-6ed25e33b3c4 h1:QeqJzUd2qeHQPWG+gGVCZXD9VhsWfHfmlSVe5MjkEds=
+github.com/DataDog/go-python3 v0.0.0-20191126174558-6ed25e33b3c4/go.mod h1:7ctnOCLiUlwKO9GvAjusUF68edSbiHqC18gVPQF0ojA=
+github.com/Kagami/go-face v0.0.0-20191005110546-01156987f993 h1:F/yo0o+tus3kmU2GdHAuLVPKfhRDIR/sWOl02+H+uX8=
+github.com/Kagami/go-face v0.0.0-20191005110546-01156987f993/go.mod h1:6V3Zb/7DyezDSai6K1gDrTtN02RpvIFzQBHUEDAcjNI=

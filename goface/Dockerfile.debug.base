@@ -1,0 +1,30 @@
+# docker build -t goface:debug-base -f goface/Dockerfile.debug.base .
+
+FROM golang:1.14.2
+
+WORKDIR /github.com/idealism-xxm/
+
+COPY go.mod .
+COPY go.sum .
+
+RUN go mod download
+RUN apt-get update && \
+  apt-get install -y libdlib-dev libopenblas-dev libjpeg62-turbo-dev bzip2
+
+RUN mkdir -p /usr/local/lib/pkgconfig
+RUN CONFIG_PATH="/usr/local/lib/pkgconfig/dlib-1.pc" && \
+  libdir="/usr/lib/x86_64-linux-gnu" && \
+  includedir="/usr/include" && \
+  echo "Name: dlib" >> $CONFIG_PATH && \
+  echo "Description: Numerical and networking C++ library" >> $CONFIG_PATH && \
+  echo "Version: 19.10.0" >> $CONFIG_PATH && \
+  echo "Libs: -L${libdir} -ldlib -lblas -llapack" >> $CONFIG_PATH && \
+  echo "Cflags: -I${includedir}" >> $CONFIG_PATH && \
+  echo "Requires:" >> $CONFIG_PATH
+RUN mkdir models && cd models && \
+  wget https://github.com/davisking/dlib-models/raw/master/shape_predictor_5_face_landmarks.dat.bz2 && \
+  bunzip2 shape_predictor_5_face_landmarks.dat.bz2 && \
+  wget https://github.com/davisking/dlib-models/raw/master/dlib_face_recognition_resnet_model_v1.dat.bz2 && \
+  bunzip2 dlib_face_recognition_resnet_model_v1.dat.bz2 && \
+  wget https://github.com/davisking/dlib-models/raw/master/mmod_human_face_detector.dat.bz2 && \
+  bunzip2 mmod_human_face_detector.dat.bz2

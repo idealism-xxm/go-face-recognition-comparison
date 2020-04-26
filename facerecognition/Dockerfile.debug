@@ -1,0 +1,13 @@
+# docker build -t facerecognition:debug -f facerecognition/Dockerfile.debug --build-arg repository=facerecognition:debug-base .
+
+# format -> name:tag
+ARG repository
+FROM $repository
+
+WORKDIR /github.com/idealism-xxm/
+COPY . .
+
+RUN mkdir bin
+RUN CGO_ENABLED=1 GOOS=linux go build -v -o bin go-face-recognition-demo/facerecognition/...
+
+CMD ["/github.com/idealism-xxm/bin/facerecognition"]

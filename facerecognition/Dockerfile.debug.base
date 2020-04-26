@@ -1,0 +1,13 @@
+# docker build -t facerecognition:debug-base -f facerecognition/Dockerfile.debug.base .
+
+FROM golang:1.14.2
+
+WORKDIR /github.com/idealism-xxm/
+
+COPY go.mod .
+COPY go.sum .
+
+RUN go mod download
+RUN apt-get update && \
+  apt-get install -y cmake python3-pip && \
+  pip3 install face_recognition

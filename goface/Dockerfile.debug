@@ -1,0 +1,13 @@
+# docker build -t goface:debug -f goface/Dockerfile.debug --build-arg repository=goface:debug-base .
+
+# format -> name:tag
+ARG repository
+FROM $repository
+
+WORKDIR /github.com/idealism-xxm/
+COPY . .
+
+RUN mkdir bin
+RUN CGO_ENABLED=1 GOOS=linux go build -v -o bin go-face-recognition-demo/goface/...
+
+CMD ["/github.com/idealism-xxm/bin/goface"]
